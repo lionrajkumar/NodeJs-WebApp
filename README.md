@@ -20,3 +20,6 @@ Run the below command to run the server
 ```shell
 npm run dev
 ```
+
+
+Tuts Ref: [Creating a Simple Web App with Node.js](https://ilovecoding.org/courses/nodejs/lessons/creating-a-simple-web-app-with-nodejs)

@@ -1,7 +1,8 @@
 var routes = {
-	'/':'<h1>Welcome to the site</h1>',
-	'/my':'<h1>Rajkumar</h1>',
-	'/contact':'<h1>Contact Page</h1>',
+	'/':'./components/index.html',
+	'/my':'./components/my.html',
+	'/contact':'./components/contact.html',
+	'/contacts':'./components/contacts.html',
 };
 
 exports.route = routes;

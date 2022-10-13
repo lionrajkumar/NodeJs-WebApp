@@ -1,3 +1,5 @@
+require('dotenv').config({path: __dirname + '/.env'})
+
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const http = require('http');
@@ -18,30 +20,28 @@ server.listen(port, hostname, () => {
   //main().catch(console.error);
 });*/
 
-http.createServer(onRequest).listen(port);
+const app = http.createServer(onRequest).listen(port);
 
 function onRequest(request, response){
-  var pathName = url.parse(request.url).pathname;
-  views.loadView(response, pathName);
+  var path = url.parse(request.url).pathname;
+  views.loadView(response, path);
 }
 
-
 async function main(){
-    const uri = "mongodb+srv://<MONGODB_USER>:<MONGODB_PASS>@<MONGODB_HOST>/?retryWrites=true&w=majority";
+    const uri = "mongodb+srv://"+process.env['MONGODB_USER']+":"+process.env['MONGODB_PASS']+"@"+process.env['MONGODB_HOST']+"/?retryWrites=true&w=majority";
 	const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
- 
+
     try {
-        // Connect to the MongoDB cluster
         await client.connect();
-		
+
 		/*client.connect(err => {
 			const collection = client.db("r-analytics").collection("user");
-			
-	
+
+
 		  client.close();
 		});*/
 		await  listDatabases(client);
- 
+
     } catch (e) {
         console.error(e);
     } finally {
@@ -52,7 +52,7 @@ async function main(){
 
 async function listDatabases(client){
     databasesList = await client.db().admin().listDatabases();
- 
+
     console.log("Databases:");
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
